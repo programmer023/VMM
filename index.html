@@ -834,9 +834,9 @@
 
                     var date = moment().format('DD-MM-YYYY_HH:MM:SS');
                     //pdfMake.createPdf(dd).download('Invoice_' + date + '.pdf');
-                    pdfMake.createPdf(dd).download('Invoice_' + date + '.pdf', function ()
+                    pdfMake.createPdf(dd).download('Tax_Invoice_' + date + '.pdf', function ()
                     {
-                        alert('Invoice pdf : ' + 'Invoice_' + date + '.pdf' +' is downloaded, please check downloads folder!');
+                        alert('Tax Invoice pdf : ' + 'Tax_Invoice_' + date + '.pdf' +' is downloaded, please check downloads folder!');
                         window.location.reload();
                     });
                     
