@@ -1,4 +1,4 @@
-﻿<html lang="en">
+<html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Angular Material style sheet -->
@@ -193,7 +193,7 @@
                             </form>
 
                             <md-button class="md-raised md-primary" ng-click="addProduct()">Add Product</md-button>
-
+							
                             <table style="border:1px solid black;" ng-if="products.length>0">
                                 <thead>
                                     <tr>
@@ -242,6 +242,19 @@
                                     </tr>
                                 </tbody>
                             </table>
+							
+							<br/><br/><br/>
+							<div layout-gt-sm="row">
+								<div flex-gt-xm>
+									Total:	{{gTotal}}
+								</div>
+								<div flex-gt-xm>
+									<md-input-container class="md-block" flex-gt-sm>
+										<label>Round off amount</label>
+										<input ng-model="roundOff" type="number">
+									</md-input-container>
+								</div>
+							</div>
 
                             <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
                                 <md-button class="md-raised" ng-click="firstTab()">Previous</md-button>
@@ -410,6 +423,8 @@
                     for (var i = 0; i < $scope.products.length; i++) {
                         grandTotal += $scope.products[i].total;
                     }
+					$scope.gTotal = $scope.formatNumber(grandTotal);
+					grandTotal += $scope.roundOff;
                     return grandTotal;
                 };
 				
@@ -694,9 +709,28 @@
                                             { text: "", border: [false, false, false, true] },
                                             { text: "", border: [false, false, false, true] },
                                             {
+                                                text: 'Round off:',
+                                                alignment: 'right',
+												colSpan: 2,
+												border: [false, true, true, true]
+                                            },
+											'',
+                                            {
+                                                text: $scope.formatNumberGT($scope.roundOff),
+                                                //alignment: 'right',
+                                                //bold: true
+                                            }
+                                        ],
+										[
+											{ text: "", border: [true, false, false, true] },
+                                            { text: "", border: [false, false, false, true] },
+                                            { text: "", border: [false, false, false, true] },
+                                            { text: "", border: [false, false, false, true] },
+                                            {
                                                 text: 'Tax: ' + $scope.getTaxTotal(),
-                                                //alignment: 'right'
-												colSpan: 2
+                                                alignment: 'right',
+												colSpan: 2,
+												border: [false, true, true, true]
                                             },
 											'',
                                             {
@@ -849,7 +883,7 @@
                     product.total = (product.rateQuantity) + ((product.sgstPer / 100) * product.rateQuantity) + ((product.cgstPer / 100) * product.rateQuantity);
 
                     $scope.products.push(product);
-
+					$scope.getGrandTotal();
                     $scope.resetProduct();
                 };
 
