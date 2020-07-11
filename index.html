@@ -146,6 +146,21 @@
                                         <input ng-model="user.termsOfDelivery">
                                     </md-input-container>
                                 </div>
+								
+								<div layout-gt-sm="row">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>Bank name</label>
+                                        <input ng-model="user.bank">
+                                    </md-input-container>
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>Account No.</label>
+                                        <input ng-model="user.AccountNo">
+                                    </md-input-container>
+									<md-input-container class="md-block" flex-gt-sm>
+                                        <label>IFSC Code</label>
+                                        <input ng-model="user.IFSCCODE">
+                                    </md-input-container>
+                                </div>
 
                                 <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
                                     <md-button class="md-raised" ng-click="reset()">Reset</md-button>
@@ -251,7 +266,7 @@
 								<div flex-gt-xm>
 									<md-input-container class="md-block" flex-gt-sm>
 										<label>Round off amount</label>
-										<input ng-model="roundOff" type="number">
+										<input ng-model="roundOff" type="number">	
 									</md-input-container>
 								</div>
 							</div>
@@ -295,35 +310,73 @@
         angular
             .module('InvoiceApp', ['ngMaterial', 'ngMessages'])
             .controller('InvoiceControl', function ($scope) {
-
+				
+				$scope.saveInitialFakeData = function () {
+                    localStorage.sellerName= 'ABC ENTERPRISE',
+                    localStorage.sellerAddressLine1= 'B9, Ambika Tenament,',
+                    localStorage.sellerAddressLine2= 'Near New Jaspark Society,',
+                    localStorage.sellerAddressLine3= 'Isanpur, Ahmedabad -380008,',
+                    localStorage.sellerGSTIN= '24AKSPM8985A1ZO',
+					
+                    localStorage.buyerName= 'BIRD INK',
+                    localStorage.buyerAddressLine1= 'Narol,',
+                    localStorage.buyerAddressLine2= 'Ahmedabad',
+                    localStorage.buyerAddressLine3= '380008',
+                    localStorage.buyerGSTIN = 'ABCDEF',
+					
+					             //Invioce details
+					localStorage.invoiceNo= 'GST/002/18-19',
+					localStorage.invoiceDate= new Date(),
+                    localStorage.deliveryNote= '',
+                    localStorage.modeTermsOfPayment= '',
+                    localStorage.suppliersRef= '',
+					localStorage.otherRef= '',
+					localStorage.buyersOrderNo= '',
+                    localStorage.buyersOrderNoDated= '',//new Date(),
+                    localStorage.dispatchDocNo= '',
+                    localStorage.dispatchDocNoDated= '',//new Date(),
+					localStorage.dispatchedThrough= '',
+					localStorage.destination= '',
+                    localStorage.termsOfDelivery= '',
+                    localStorage.bank= '',
+                    localStorage.AccountNo= '',
+					localStorage.IFSCCODE = ''
+				};
+				
+				//$scope.saveInitialFakeData();
+				
                 $scope.userMasterData = {
-                    sellerName: 'DHVANIT ENTERPRISE',
-                    sellerAddressLine1: 'B9, Ambika Tenament,',
-                    sellerAddressLine2: 'Near New Jaspark Society,',
-                    sellerAddressLine3: 'Isanpur, Ahmedabad -380008,',
-                    sellerGSTIN: '24AKSPM8985A1ZO',
+                    sellerName:  localStorage.sellerName,           
+                    sellerAddressLine1: localStorage.sellerAddressLine1,
+                    sellerAddressLine2: localStorage.sellerAddressLine2,
+                    sellerAddressLine3: localStorage.sellerAddressLine3,
+                    sellerGSTIN: localStorage.sellerGSTIN,
 
                     //TODO remove values
-                    buyerName: 'BIRD INK',
-                    buyerAddressLine1: 'Narol,',
-                    buyerAddressLine2: 'Ahmedabad',
-                    buyerAddressLine3: '380008',
-					buyerGSTIN : 'ABCDEF',
+                    buyerName: localStorage.buyerName,
+                    buyerAddressLine1: localStorage.buyerAddressLine1,
+                    buyerAddressLine2: localStorage.buyerAddressLine2,
+                    buyerAddressLine3: localStorage.buyerAddressLine3,
+					buyerGSTIN : localStorage.buyerGSTIN,
 
                     //Invioce details
-                    invoiceNo: 'GST/002/18-19',
+                    invoiceNo: localStorage.invoiceNo,
                     invoiceDate: new Date(),
-                    deliveryNote: '',
-                    modeTermsOfPayment: '',
-                    suppliersRef: '',
-                    otherRef: '',
-                    buyersOrderNo: '',
-                    buyersOrderNoDated: '',//new Date(),
-                    dispatchDocNo: '',
-                    dispatchDocNoDated: '',//new Date(),
-                    dispatchedThrough: '',
-                    destination: '',
-                    termsOfDelivery: '',
+                    deliveryNote: localStorage.deliveryNote,
+                    modeTermsOfPayment: localStorage.modeTermsOfPayment,
+                    suppliersRef: localStorage.suppliersRef,
+                    otherRef: localStorage.otherRef,
+                    buyersOrderNo: localStorage.buyersOrderNo,
+                    buyersOrderNoDated: localStorage.buyersOrderNoDated,//new Date(),
+                    dispatchDocNo: localStorage.dispatchDocNo,
+                    dispatchDocNoDated: localStorage.dispatchDocNoDated,//new Date(),
+                    dispatchedThrough: localStorage.dispatchedThrough,
+                    destination: localStorage.destination,
+                    termsOfDelivery: localStorage.termsOfDelivery,
+					bank: localStorage.bank,
+					AccountNo: localStorage.AccountNo,
+					IFSCCODE : localStorage.IFSCCODE
+					
                 };
                 $scope.user = angular.copy($scope.userMasterData);
 
@@ -365,10 +418,47 @@
 
                 $scope.secondTab = function () {
                     $scope.selectedIndex = 1;
+					$scope.saveRealData();
                 };
 
                 $scope.thirdTab = function () {
+					if($scope.products.length == 0){
+						alert('Please add at least one product before going to generate PDF page');
+						return false;
+					}
                     $scope.selectedIndex = 2;
+                };
+				
+				$scope.saveRealData = function () {
+                    localStorage.sellerName= $scope.user.sellerName;//'ABC';//'DHVANIT ENTERPRISE',
+                    localStorage.sellerAddressLine1= $scope.user.sellerAddressLine1;//'DEF';//'B9, Ambika Tenament,',
+                    localStorage.sellerAddressLine2= $scope.user.sellerAddressLine2;//'GHI';//'Near New Jaspark Society,',
+                    localStorage.sellerAddressLine3= $scope.user.sellerAddressLine3;//'JKL';//'Isanpur, Ahmedabad -380008,',
+                    localStorage.sellerGSTIN= $scope.user.sellerGSTIN;//'123QWE';//'24AKSPM8985A1ZO',
+                    
+					localStorage.buyerName= $scope.user.buyerName,
+                    localStorage.buyerAddressLine1= $scope.user.buyerAddressLine1,
+                    localStorage.buyerAddressLine2= $scope.user.buyerAddressLine2,
+                    localStorage.buyerAddressLine3= $scope.user.buyerAddressLine3,
+                    localStorage.buyerGSTIN = $scope.user.buyerGSTIN,
+					
+					             //Invioce details
+					localStorage.invoiceNo= $scope.user.invoiceNo,
+					localStorage.invoiceDate= new Date(),
+                    localStorage.deliveryNote= $scope.user.deliveryNote,
+                    localStorage.modeTermsOfPayment= $scope.user.modeTermsOfPayment,
+                    localStorage.suppliersRef= $scope.user.suppliersRef,
+					localStorage.otherRef= $scope.user.otherRef,
+					localStorage.buyersOrderNo= $scope.user.buyersOrderNo,
+                    localStorage.buyersOrderNoDated= $scope.user.buyersOrderNoDated,//new Date(),
+                    localStorage.dispatchDocNo= $scope.user.dispatchDocNo,
+                    localStorage.dispatchDocNoDated= $scope.user.dispatchDocNoDated,//new Date(),
+					localStorage.dispatchedThrough= $scope.user.dispatchedThrough,
+					localStorage.destination= $scope.user.destination,
+                    localStorage.termsOfDelivery= $scope.user.termsOfDelivery,
+                    localStorage.bank= $scope.user.bank,
+                    localStorage.AccountNo= $scope.user.AccountNo,
+					localStorage.IFSCCODE = $scope.user.IFSCCODE					
                 };
 
                 $scope.formatNumber = function (num) {
@@ -424,7 +514,7 @@
                         grandTotal += $scope.products[i].total;
                     }
 					$scope.gTotal = $scope.formatNumber(grandTotal);
-					grandTotal += $scope.roundOff;
+					grandTotal += $scope.roundOff ? $scope.roundOff : 0.00;
                     return grandTotal;
                 };
 				
@@ -716,7 +806,7 @@
                                             },
 											'',
                                             {
-                                                text: $scope.formatNumberGT($scope.roundOff),
+                                                text: $scope.formatNumberGT($scope.roundOff ? $scope.roundOff : 0.00),
                                                 //alignment: 'right',
                                                 //bold: true
                                             }
@@ -772,11 +862,11 @@
                                         ],
                                         [
                                             {
-                                                colSpan: 2,												
+                                                colSpan: 3,												
                                                 fontSize: 11,
 												alignment :'justify',
                                                 border: [true, false, false, false],
-                                                text: "\n\nDeclaration:\nWe declare that this invoice shows the actual price of the goods described and that all particulars are true and correct.",
+                                                text: "Payment Details:-\nBank             : " + $scope.user.bank + "\nAccount No.: " + $scope.user.AccountNo + "\nIFSC Code   : " + $scope.user.IFSCCODE,
                                             },
                                             { text: "", border: [false, false, false, false] },
                                             { text: "", border: [false, false, false, false] },
@@ -788,7 +878,9 @@
                                         [
                                             {
                                                 colSpan: 3,
-                                                text: "",
+												fontSize: 11,
+												alignment :'justify',
+                                                text: "\n\nDeclaration:\nWe declare that this invoice shows the actual price of the goods described and that all particulars are true and correct.",
                                                 border: [true, false, false, true]
                                             },
                                             "",
@@ -813,7 +905,7 @@
                                 margin: [0, 0, 0, 10]
                             },
                             subheader: {
-                                fontSize: 14,
+                                fontSize: 12,
                                 bold: true,
                                 margin: [0, 5, 0, 5],
                                 alignment: 'center'
@@ -822,11 +914,11 @@
                                 margin: [0, 5, 0, 5],
                                 heights: 700,
                                 //width: 585,
-                                fontSize : 12
+                                fontSize : 11
                             },
                             tableHeader: {
                                 bold: true,
-                                fontSize: 13,
+                                fontSize: 11,
                                 color: 'black'
                             }
                         },
