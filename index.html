@@ -430,35 +430,35 @@
                 };
 				
 				$scope.saveRealData = function () {
-                    localStorage.sellerName= $scope.user.sellerName;//'ABC';//'DHVANIT ENTERPRISE',
-                    localStorage.sellerAddressLine1= $scope.user.sellerAddressLine1;//'DEF';//'B9, Ambika Tenament,',
-                    localStorage.sellerAddressLine2= $scope.user.sellerAddressLine2;//'GHI';//'Near New Jaspark Society,',
-                    localStorage.sellerAddressLine3= $scope.user.sellerAddressLine3;//'JKL';//'Isanpur, Ahmedabad -380008,',
-                    localStorage.sellerGSTIN= $scope.user.sellerGSTIN;//'123QWE';//'24AKSPM8985A1ZO',
+                    localStorage.sellerName= $scope.user.sellerName ? $scope.user.sellerName : '';//'ABC';//'DHVANIT ENTERPRISE',
+                    localStorage.sellerAddressLine1= $scope.user.sellerAddressLine1 ? $scope.user.sellerAddressLine1 : '';//'DEF';//'B9, Ambika Tenament,',
+                    localStorage.sellerAddressLine2= $scope.user.sellerAddressLine2 ? $scope.user.sellerAddressLine2 : '';//'GHI';//'Near New Jaspark Society,',
+                    localStorage.sellerAddressLine3= $scope.user.sellerAddressLine3 ? $scope.user.sellerAddressLine3 : '';//'JKL';//'Isanpur, Ahmedabad -380008,',
+                    localStorage.sellerGSTIN= $scope.user.sellerGSTIN ? $scope.user.sellerGSTIN : '';//'123QWE';//'24AKSPM8985A1ZO',
                     
-					localStorage.buyerName= $scope.user.buyerName,
-                    localStorage.buyerAddressLine1= $scope.user.buyerAddressLine1,
-                    localStorage.buyerAddressLine2= $scope.user.buyerAddressLine2,
-                    localStorage.buyerAddressLine3= $scope.user.buyerAddressLine3,
-                    localStorage.buyerGSTIN = $scope.user.buyerGSTIN,
+					localStorage.buyerName= $scope.user.buyerName ? $scope.user.buyerName : '',
+                    localStorage.buyerAddressLine1= $scope.user.buyerAddressLine1 ? $scope.user.buyerAddressLine1 : '',
+                    localStorage.buyerAddressLine2= $scope.user.buyerAddressLine2 ? $scope.user.buyerAddressLine2 : '',
+                    localStorage.buyerAddressLine3= $scope.user.buyerAddressLine3 ? $scope.user.buyerAddressLine3 : '',
+                    localStorage.buyerGSTIN = $scope.user.buyerGSTIN ? $scope.user.buyerGSTIN : '',
 					
 					             //Invioce details
-					localStorage.invoiceNo= $scope.user.invoiceNo,
+					localStorage.invoiceNo= $scope.user.invoiceNo ? $scope.user.invoiceNo : '',
 					localStorage.invoiceDate= new Date(),
-                    localStorage.deliveryNote= $scope.user.deliveryNote,
-                    localStorage.modeTermsOfPayment= $scope.user.modeTermsOfPayment,
-                    localStorage.suppliersRef= $scope.user.suppliersRef,
-					localStorage.otherRef= $scope.user.otherRef,
-					localStorage.buyersOrderNo= $scope.user.buyersOrderNo,
-                    localStorage.buyersOrderNoDated= $scope.user.buyersOrderNoDated,//new Date(),
-                    localStorage.dispatchDocNo= $scope.user.dispatchDocNo,
-                    localStorage.dispatchDocNoDated= $scope.user.dispatchDocNoDated,//new Date(),
-					localStorage.dispatchedThrough= $scope.user.dispatchedThrough,
-					localStorage.destination= $scope.user.destination,
-                    localStorage.termsOfDelivery= $scope.user.termsOfDelivery,
-                    localStorage.bank= $scope.user.bank,
-                    localStorage.AccountNo= $scope.user.AccountNo,
-					localStorage.IFSCCODE = $scope.user.IFSCCODE					
+                    localStorage.deliveryNote= $scope.user.deliveryNote ? $scope.user.deliveryNote : '',
+                    localStorage.modeTermsOfPayment= $scope.user.modeTermsOfPayment ? $scope.user.modeTermsOfPayment : '',
+                    localStorage.suppliersRef= $scope.user.suppliersRef ? $scope.user.suppliersRef : '',
+					localStorage.otherRef= $scope.user.otherRef ? $scope.user.otherRef : '',
+					localStorage.buyersOrderNo= $scope.user.buyersOrderNo ? $scope.user.buyersOrderNo : '',
+                    localStorage.buyersOrderNoDated= $scope.user.buyersOrderNoDated ? $scope.user.buyersOrderNoDated : '',//new Date(),
+                    localStorage.dispatchDocNo= $scope.user.dispatchDocNo ? $scope.user.dispatchDocNo : '',
+                    localStorage.dispatchDocNoDated= $scope.user.dispatchDocNoDated ? $scope.user.dispatchDocNoDated : '',//new Date(),
+					localStorage.dispatchedThrough= $scope.user.dispatchedThrough ? $scope.user.dispatchedThrough : '',
+					localStorage.destination= $scope.user.destination ? $scope.user.destination : '',
+                    localStorage.termsOfDelivery= $scope.user.termsOfDelivery ? $scope.user.termsOfDelivery : '',
+                    localStorage.bank= $scope.user.bank ? $scope.user.bank : '' ,
+                    localStorage.AccountNo= $scope.user.AccountNo ? $scope.user.AccountNo : '',
+					localStorage.IFSCCODE = $scope.user.IFSCCODE ? $scope.user.IFSCCODE : ''					
                 };
 
                 $scope.formatNumber = function (num) {
