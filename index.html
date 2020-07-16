@@ -532,7 +532,7 @@
                     //eval("['1','Test Desc','1','₹ 60,000','','₹ 60,000']");
                     var formatString = "";
                     for (var i = 0; i < $scope.products.length; i++) {
-                        formatString += "[" + $scope.products[i].no + ",'" + $scope.products[i].name + "'," + $scope.products[i].quantity + ",'" + $scope.formatNumberNF($scope.products[i].rate) + "','" + $scope.formatNumber($scope.products[i].rateQuantity) + "'," + "'CGST " + $scope.products[i].cgstPer + "% = " + $scope.formatNumber(($scope.products[i].cgstPer / 100) * $scope.products[i].rateQuantity) + "  ; SGST " + $scope.products[i].sgstPer + "% = " + $scope.formatNumber(($scope.products[i].sgstPer / 100) * $scope.products[i].rateQuantity) + "', '" + $scope.formatNumberGT($scope.products[i].total) + "']" + (i == $scope.products.length-1 ? "" : "$$$");
+                        formatString += "[" + $scope.products[i].no + ",'" + $scope.products[i].name + "'," + $scope.products[i].quantity + ",'" + $scope.formatNumberNF($scope.products[i].rate) + "','" + $scope.formatNumber($scope.products[i].rateQuantity) + "'," + "'CGST(" + $scope.products[i].cgstPer + "%)= " + $scope.formatNumber(($scope.products[i].cgstPer / 100) * $scope.products[i].rateQuantity) + "; SGST(" + $scope.products[i].sgstPer + "%)= " + $scope.formatNumber(($scope.products[i].sgstPer / 100) * $scope.products[i].rateQuantity) + "', '" + $scope.formatNumberGT($scope.products[i].total) + "']" + (i == $scope.products.length-1 ? "" : "$$$");
                     }
                     
                     return formatString;
@@ -642,7 +642,8 @@
                                 color: 'black',
                                 table: {
 				                //widths: [15, 200, 45, 55, 80, 80],
-                                    widths: [20, 174, 53, 39, 53, 64, 74],
+                                    //widths: [20, 174, 53, 39, 53, 64, 74],=477
+									widths: [15, 150, 40, 39, 53, 100, 74],
                                     heights: 25,
                                     headerRows: 0,
                                     // keepWithHeaderRows: 1,
@@ -652,16 +653,16 @@
                                                 bold: true,
                                                 fontSize: 13,
                                                 text: ($scope.user.sellerName ? $scope.user.sellerName : '') + '\n' + ($scope.user.sellerAddressLine1 ? $scope.user.sellerAddressLine1 : '') + '\n' + ($scope.user.sellerAddressLine2 ? $scope.user.sellerAddressLine2 : '') + '\n' + ($scope.user.sellerAddressLine3 ? $scope.user.sellerAddressLine3 : '') + '\nGSTIN : ' + ($scope.user.sellerGSTIN ? $scope.user.sellerGSTIN : ''),
-                                                colSpan: 2,
+                                                colSpan: 3,
                                                 rowSpan: 3
                                             },
                                             '',
+											'',
                                             {
-                                                colSpan: 3,
+                                                colSpan: 2,
                                                 text: 'Invoice No.\n' + ($scope.user.invoiceNo ? $scope.user.invoiceNo : '')
                                             },
-                                            '',
-                                            '',
+                                            '',                                            
                                             {
                                                 colSpan: 2,
                                                 text: 'Dated\n' + $scope.formatDate($scope.user.invoiceDate)
@@ -671,11 +672,11 @@
                                         [
                                             '',
                                             '',
+											'',
                                             {
-                                                colSpan: 3,
+                                                colSpan: 2,
                                                 text: 'Delivery Note\n' + ($scope.user.deliveryNote ? $scope.user.deliveryNote :'')
                                             },
-                                            '',
                                             '',
                                             {
                                                 colSpan: 2,
@@ -686,11 +687,11 @@
                                         [
                                             '',
                                             '',
+											'',
                                             {
-                                                colSpan: 3,
+                                                colSpan: 2,
                                                 text: "Supplier's Ref.\n" + ($scope.user.suppliersRef ? $scope.user.suppliersRef : '')
                                             },
-                                            '',
                                             '',
                                             {
                                                 colSpan: 2,
@@ -705,15 +706,15 @@
                                                 text: 'Buyer details:\n' + ($scope.user.buyerName ? $scope.user.buyerName : '') + '\n' + ($scope.user.buyerAddressLine1 ? $scope.user.buyerAddressLine1 : '')+ 
                                                     '\n' + ($scope.user.buyerAddressLine2 ? $scope.user.buyerAddressLine2 : '') +
                                                     '\n' + ($scope.user.buyerAddressLine3 ? $scope.user.buyerAddressLine3 : '') + '\nGSTIN : ' + ($scope.user.buyerGSTIN ? $scope.user.buyerGSTIN : ''),
-                                                colSpan: 2,
+                                                colSpan: 3,
                                                 rowSpan: 4
                                             },
                                             '',
+											'',
                                             {
-                                                colSpan: 3,
+                                                colSpan: 2,
                                                 text: "Buyer's Order No.\n" + ($scope.user.buyersOrderNo ? $scope.user.buyersOrderNo : '')
                                             },
-                                            '',
                                             '',
                                             {
                                                 colSpan: 2,
@@ -724,11 +725,11 @@
                                         [
                                             '',
                                             '',
+											'',
                                             {
-                                                colSpan: 3,
-                                                text: 'Dispatch Document No.\n' + ($scope.user.dispatchDocNo ? $scope.user.dispatchDocNo : '')
+                                                colSpan: 2,
+                                                text: 'Dispatch Doc. No.\n' + ($scope.user.dispatchDocNo ? $scope.user.dispatchDocNo : '')
                                             },
-                                            '',
                                             '',
                                             {
                                                 colSpan: 2,
@@ -739,11 +740,11 @@
                                         [
                                             '',
                                             '',
+											'',
                                             {
-                                                colSpan: 3,
+                                                colSpan: 2,
                                                 text: 'Dispatched through\n' + ($scope.user.dispatchedThrough ? $scope.user.dispatchedThrough : '')
                                             },
-                                            '',
                                             '',
                                             {
                                                 colSpan: 2,
@@ -754,11 +755,11 @@
                                         [
                                             '',
                                             '',
+											'',
                                             {
-                                                colSpan: 5,
+                                                colSpan: 4,
                                                 text: 'Terms of Delivery\n' + ($scope.user.termsOfDelivery ? $scope.user.termsOfDelivery : '')
                                             },
-                                            '',
                                             '',
                                             '',
                                             '',
@@ -914,7 +915,7 @@
                                 margin: [0, 5, 0, 5],
                                 heights: 700,
                                 //width: 585,
-                                fontSize : 11
+                                fontSize : 10
                             },
                             tableHeader: {
                                 bold: true,
