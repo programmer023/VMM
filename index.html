@@ -189,6 +189,10 @@
                                         <input ng-model="product.name">
                                     </md-input-container>
                                     <md-input-container class="md-block" flex-gt-sm>
+                                        <label>HSN Code</label>
+                                        <input ng-model="product.hsncode">
+                                    </md-input-container>
+                                    <md-input-container class="md-block" flex-gt-sm>
                                         <label>Quantity</label>
                                         <input ng-model="product.quantity" type="number">
                                     </md-input-container>
@@ -219,6 +223,9 @@
                                             Name
                                         </td>
                                         <td>
+                                            HSN Code
+                                        </td>
+                                        <td>
                                             Quantity
                                         </td>
                                         <td>
@@ -245,6 +252,7 @@
                                     <tr ng-repeat="item in products track by $index">
                                         <td>{{item.no}}</td>
                                         <td>{{item.name}}</td>
+                                        <td>{{item.hsncode}}</td>
                                         <td>{{item.quantity}}</td>
                                         <td>{{item.rate}}</td>
 					                    <td>{{item.rateQuantity}}</td>
@@ -384,6 +392,7 @@
                 $scope.productMaster = {
                     no: 1,
                     name: "",
+                    hsncode:"",
                     quantity: 1,
                     rate: 0,
 		            //basicAmt : 0,
@@ -531,8 +540,9 @@
                 $scope.getFormattedProducts = function () {
                     //eval("['1','Test Desc','1','₹ 60,000','','₹ 60,000']");
                     var formatString = "";
+                    debugger;
                     for (var i = 0; i < $scope.products.length; i++) {
-                        formatString += "[" + $scope.products[i].no + ",'" + $scope.products[i].name + "'," + $scope.products[i].quantity + ",'" + $scope.formatNumberNF($scope.products[i].rate) + "','" + $scope.formatNumber($scope.products[i].rateQuantity) + "'," + "'CGST(" + $scope.products[i].cgstPer + "%)= " + $scope.formatNumber(($scope.products[i].cgstPer / 100) * $scope.products[i].rateQuantity) + "; SGST(" + $scope.products[i].sgstPer + "%)= " + $scope.formatNumber(($scope.products[i].sgstPer / 100) * $scope.products[i].rateQuantity) + "', '" + $scope.formatNumberGT($scope.products[i].total) + "']" + (i == $scope.products.length-1 ? "" : "$$$");
+                        formatString += "[" + $scope.products[i].no + ",'" + $scope.products[i].name + "','" + $scope.products[i].hsncode + "'," + $scope.products[i].quantity + ",'" + $scope.formatNumberNF($scope.products[i].rate) + "','" + $scope.formatNumber($scope.products[i].rateQuantity) + "'," + "'CGST(" + $scope.products[i].cgstPer + "%)= " + $scope.formatNumber(($scope.products[i].cgstPer / 100) * $scope.products[i].rateQuantity) + "; SGST(" + $scope.products[i].sgstPer + "%)= " + $scope.formatNumber(($scope.products[i].sgstPer / 100) * $scope.products[i].rateQuantity) + "', '" + $scope.formatNumberGT($scope.products[i].total) + "']" + (i == $scope.products.length-1 ? "" : "$$$");
                     }
                     
                     return formatString;
@@ -629,6 +639,7 @@
                     var arayObj = $scope.getFormattedProducts();
                     var test = arayObj.split('$$$');
                     var test1 =[];
+                    debugger;
                     for (var i = 0; i < test.length; i++) {
                         test1.push(eval(test[i]));
                     }
@@ -641,9 +652,10 @@
                                 style: 'tableExample',
                                 color: 'black',
                                 table: {
-				                //widths: [15, 200, 45, 55, 80, 80],
+				                    //widths: [15, 200, 45, 55, 80, 80],
                                     //widths: [20, 174, 53, 39, 53, 64, 74],=477
-									widths: [15, 150, 40, 39, 53, 100, 74],
+									//widths: [15, 150, 40, 39, 53, 100, 74],=471
+                                    width: [15,140,30,35,39,50,90,74],//472
                                     heights: 25,
                                     headerRows: 0,
                                     // keepWithHeaderRows: 1,
@@ -659,10 +671,11 @@
                                             '',
 											'',
                                             {
-                                                colSpan: 2,
+                                                colSpan: 3,
                                                 text: 'Invoice No.\n' + ($scope.user.invoiceNo ? $scope.user.invoiceNo : '')
                                             },
-                                            '',                                            
+                                            '',
+                                            '',                    
                                             {
                                                 colSpan: 2,
                                                 text: 'Dated\n' + $scope.formatDate($scope.user.invoiceDate)
@@ -674,9 +687,10 @@
                                             '',
 											'',
                                             {
-                                                colSpan: 2,
+                                                colSpan: 3,
                                                 text: 'Delivery Note\n' + ($scope.user.deliveryNote ? $scope.user.deliveryNote :'')
                                             },
+                                            '',
                                             '',
                                             {
                                                 colSpan: 2,
@@ -689,9 +703,10 @@
                                             '',
 											'',
                                             {
-                                                colSpan: 2,
+                                                colSpan: 3,
                                                 text: "Supplier's Ref.\n" + ($scope.user.suppliersRef ? $scope.user.suppliersRef : '')
                                             },
+                                            '',
                                             '',
                                             {
                                                 colSpan: 2,
@@ -712,9 +727,10 @@
                                             '',
 											'',
                                             {
-                                                colSpan: 2,
+                                                colSpan: 3,
                                                 text: "Buyer's Order No.\n" + ($scope.user.buyersOrderNo ? $scope.user.buyersOrderNo : '')
                                             },
+                                            '',
                                             '',
                                             {
                                                 colSpan: 2,
@@ -727,9 +743,10 @@
                                             '',
 											'',
                                             {
-                                                colSpan: 2,
+                                                colSpan: 3,
                                                 text: 'Dispatch Doc. No.\n' + ($scope.user.dispatchDocNo ? $scope.user.dispatchDocNo : '')
                                             },
+                                            '',
                                             '',
                                             {
                                                 colSpan: 2,
@@ -742,9 +759,10 @@
                                             '',
 											'',
                                             {
-                                                colSpan: 2,
+                                                colSpan: 3,
                                                 text: 'Dispatched through\n' + ($scope.user.dispatchedThrough ? $scope.user.dispatchedThrough : '')
                                             },
+                                            '',
                                             '',
                                             {
                                                 colSpan: 2,
@@ -757,9 +775,10 @@
                                             '',
 											'',
                                             {
-                                                colSpan: 4,
+                                                colSpan: 5,
                                                 text: 'Terms of Delivery\n' + ($scope.user.termsOfDelivery ? $scope.user.termsOfDelivery : '')
                                             },
+                                            '',
                                             '',
                                             '',
                                             '',
@@ -767,6 +786,7 @@
                                         [
                                             {text:'No', bold:true},
                                             {text:'Description of Goods',bold:true},
+                                            {text:'HSN Code',bold:true},
                                             {text:'Quantity',bold:true},
                                             {text:'Rate',bold:true},
 					                        {text:'Basic Amount',bold:true},
@@ -799,6 +819,7 @@
                                             { text: "", border: [false, false, false, true] },
                                             { text: "", border: [false, false, false, true] },
                                             { text: "", border: [false, false, false, true] },
+                                            { text: "", border: [false, false, false, true] },
                                             {
                                                 text: 'Round off:',
                                                 alignment: 'right',
@@ -814,6 +835,7 @@
                                         ],
 										[
 											{ text: "", border: [true, false, false, true] },
+                                            { text: "", border: [false, false, false, true] },
                                             { text: "", border: [false, false, false, true] },
                                             { text: "", border: [false, false, false, true] },
                                             { text: "", border: [false, false, false, true] },
@@ -843,6 +865,7 @@
                                             { text: "", border: [false, false, false, false] },
                                             { text: "", border: [false, false, false, false] },
                                             { text: "", border: [false, false, false, false] },
+                                            { text: "", border: [false, false, false, false] },
                                             { text: "", border: [false, false, true, false] }
                                         ],
 										[
@@ -854,6 +877,7 @@
                                                 border: [true, false, false, false],
                                                 text: number2text($scope.getGrandTotal()),
                                             },
+                                            { text: "", border: [false, false, false, false] },
                                             { text: "", border: [false, false, false, false] },
                                             { text: "", border: [false, false, false, false] },
                                             { text: "", border: [false, false, false, false] },
@@ -874,6 +898,7 @@
                                             { text: "", border: [false, false, false, false] },
                                             { text: "", border: [false, false, false, false] },
                                             { text: "", border: [false, false, false, false] },
+                                            { text: "", border: [false, false, false, false] },
                                             { text: "", border: [false, false, true, false] }
                                         ],
                                         [
@@ -887,7 +912,7 @@
                                             "",
                                             "",
                                             {
-                                                colSpan: 4,
+                                                colSpan: 5,
                                                 bold: true,
                                                 alignment: 'right',
                                                 text: "for " + ($scope.user.sellerName ? $scope.user.sellerName : '') +"\n\n\nAuthorized Signatury",
