@@ -985,10 +985,11 @@
                     dd.content[1].table.body = c1;
 
                     var date = moment().format('DD-MM-YYYY_HH:MM:SS');
+                    var buyerName = $scope.user.buyerName ? ($scope.user.buyerName.replace(/ /g, "_")+"_") : "";
                     //pdfMake.createPdf(dd).download('Invoice_' + date + '.pdf');
-                    pdfMake.createPdf(dd).download('Tax_Invoice_' + date + '.pdf', function ()
+                    pdfMake.createPdf(dd).download('Bill_' + buyerName + date + '.pdf', function ()
                     {
-                        alert('Tax Invoice pdf : ' + 'Tax_Invoice_' + date + '.pdf' +' is downloaded, please check downloads folder!');
+                        alert('Tax Invoice pdf : ' + 'Bill_' + buyerName + date + '.pdf' +' is downloaded, please check downloads folder!');
                         window.location.reload();
                     });
                     
